@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html">AngularJS demo</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+			  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sisältö <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="active"><a href="index.html">Alku</a></li>
+				  <li><a href="binding.html">Data binding</a></li>
+				  <li><a href="moduulit.html">Moduuli ja Controller</a></li>
+				  <li><a href="tapahtumakuuntelijat.html">Tapahtumakuuntelijat</a></li>
+				  <li><a href="service.html">Service</a></li>
+				  <li><a href="template.html">Template</a></li>
+				  <li><a href="route.html">Route</a></li>
+				  <li><a href="filter.html">Filter</a></li>
+				  <li><a href="globalEvents.html">Global events</a></li>
+				  <li><a href="directive.html">Directive</a></li>
+				  <li><a href="testaus.html">Testaus</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+		<div class="hero-unit">
+			<h1>AngularJS demo</h1>
+		</div>
+		
+		<div class="row">
+			<div class="span12">
+				
+				<p>Jälleen yksi framework lisää! Ja miksi juuri tätä pitäisi käyttää? Tässä demossa käydään AngularJS:n parhaita ominaisuuksia läpi.</p>
+				
+				<p>Kaikki tässä demossa esitellyt tekniikat on luultavasti toteutettu monessa muussakin frameworkissa. Minulla on aikeisempaa kokemusta vain <a href="http://backbonejs.org/">Backbonesta</a>.</p>
+				
+				<p>Muita mielenkiintoisia/vastaavia frameworkkeja:</p>
+				
+				<ul>
+					<li><a href="http://knockoutjs.com/">Knockout</a>: UI:n automaattinen päivitys datan muuttuessa eli sama kuin AngularJSsä</li>
+					<li><a href="http://durandaljs.com/">Durandal</a>: Knockoutin päälle rakennettu framework</li>
+					<li><a href="http://emberjs.com/">Ember</a>: Framework joka tarjoaa myös data bindingia</li>
+				</ul>
+				
+				<h3>Etuja</h3>
+				
+				<ul>
+					<li>Vakaa, kehittyvä ja Googlen tukema (kaksi täysipäiväistä kehittäjää)</li>
+					<li>Helpottaa (oikeasti) kehitystä ja vähentää koodimäärä esim. Backboneen verrattuna.</li>
+					<li>Pakottaa siistin koodaustyylin joka helpottaa testausta</li>
+				</ul>
+				
+				<h3>Haitat</h3>
+				
+				<ul>
+					<li>Korkea oppimiskynnys verrattuna esim. Backboneen</li>
+					<li>Googlen tuki voi olla häilyväistä</li>
+					<li>jQuery löytyy 75% sivustoista. Sen pluginien käyttäminen vaatii aina oman directiivin eli lisätyötä. Onko sen arvoista?</li>
+				</ul>
+			</div>
+		</div>
+	  
+		<div class="row">
+			<div class="span6"></div>
+			<div class="span6 text-right"><a href="binding.html">Seuraava</a></div>
+		</div>
+
+    </div>
+
+    <script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

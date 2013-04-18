@@ -1,0 +1,21 @@
+﻿<div ng-controller="henkiloFormController">
+	<p>
+		Etunimi:
+		<input type="text" ng-model="henkilo.etunimi">
+		<a href="" ng-click="henkilo.etunimi = ''"><i class="icon-remove"></i></a>
+	</p>
+
+	<p>
+		Sukunimi:
+		<input type="text" ng-model="henkilo.sukunimi">
+		<a href="" ng-click="henkilo.sukunimi = ''"><i class="icon-remove"></i></a>
+	</p>
+
+	<p>Koko nimi: {{ henkilo.etunimi + ' ' + henkilo.sukunimi }}</p>
+
+	<p>
+		<a class="btn btn-primary" href="" ng-click="luoUusi()">Tallenna uutena</a>
+		<a class="btn btn-primary" href="" ng-click="paivita()" ng-show="henkilo.id">Päivitä</a>
+		<a class="btn" href="" ng-click="tyhjenna()">Tyhjennä</a>
+	</p>
+</div>

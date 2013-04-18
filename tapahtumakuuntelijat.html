@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/shCore.css" rel="stylesheet">
+    <link href="css/shThemeDefault.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushJScript.js"></script>
+	<script src="js/shBrushXml.js"></script>
+	<script src="tapahtumakuuntelijat/appModule.js"></script>
+	<script src="tapahtumakuuntelijat/henkiloController.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html">AngularJS demo</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sisältö <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Alku</a></li>
+				  <li><a href="binding.html">Data binding</a></li>
+				  <li><a href="moduulit.html">Moduuli ja Controller</a></li>
+				  <li class="active"><a href="tapahtumakuuntelijat.html">Tapahtumakuuntelijat</a></li>
+				  <li><a href="service.html">Service</a></li>
+				  <li><a href="template.html">Template</a></li>
+				  <li><a href="route.html">Route</a></li>
+				  <li><a href="filter.html">Filter</a></li>
+				  <li><a href="globalEvents.html">Global events</a></li>
+				  <li><a href="directive.html">Directive</a></li>
+				  <li><a href="testaus.html">Testaus</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+		<div class="row">
+			<div class="span12">
+				<h1>Tapahtumakuuntelijat</h1>
+				
+				<p>AngularJS:ssä on mukana useita directiivejä hiiren tapahtumien/liikkeiden kuunteluun. Tärkein niistä on tietenkin ng-click.</p>
+			
+				<h3>ng-click</h3>
+				
+				<p>ng-click directiivi suoritetaan kun elementtiä klikataan. Toimintoja on expression eli se voi olla suoritettava kaava tai metodikutsu. Metodikutsu pitää kohdistua $scopessa oleviin metodeihin. Expressionissa voidaan myös suoraan muokata $scopen muuttujien arvoja (vaikka tämä ei ole siistiä).</p>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="row" ng-app="appModule">
+			<div class="span12" ng-controller="ekaController">
+				<p>
+					Etunimi:
+					<input type="text" ng-model="etunimi">
+					<a href="" ng-click="etunimi = ''"><i class="icon-remove"></i></a>
+				</p>
+				
+				<p>
+					Sukunimi:
+					<input type="text" ng-model="sukunimi">
+					<a href="" ng-click="sukunimi = ''"><i class="icon-remove"></i></a>
+				</p>
+				
+				<p>Koko nimi: {{ etunimi + ' ' + sukunimi }}</p>
+				
+				<p>
+					<a class="btn" href="" ng-click="tyhjenna()">Tyhjennä</a>
+				</p>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="row">
+			<div class="span12">
+				<a class="btn btn-info" href="http://plnkr.co/edit/LUgaO72r41OMwfaAvlp9">Muokkaa koodia Plunkerissa</a>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#html" data-toggle="tab">index.html</a></li>
+					<li><a href="#appModule" data-toggle="tab">appModule.js</a></li>
+					<li><a href="#henkiloController" data-toggle="tab">henkiloController.js</a></li>
+				</ul>
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="html">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<!DOCTYPE html>
+							<html lang="en">
+								<head>
+									<meta charset="utf-8">
+									<link href="css/bootstrap.css" rel="stylesheet">
+									<link href="css/bootstrap-responsive.css" rel="stylesheet">
+									<script src="js/jquery-1.9.1.min.js"/>
+									<script src="js/angular.min.js"/>
+									<script src="js/underscore-min.js"/>
+									<script src="tapahtumakuuntelijat/appModule.js"/>
+									<script src="tapahtumakuuntelijat/henkiloController.js"/>
+								</head>
+
+								<body>
+									<div class="container">
+										<div class="row" ng-app="appModule">
+											<div class="span12" ng-controller="henkiloController">
+												<p>
+													Etunimi:
+													<input type="text" ng-model="etunimi">
+													<a href="" ng-click="etunimi = ''"><i class="icon-remove"></i></a>
+												</p>
+												
+												<p>
+													Sukunimi:
+													<input type="text" ng-model="sukunimi">
+													<a href="" ng-click="sukunimi = ''"><i class="icon-remove"></i></a>
+												</p>
+												
+												<p>Koko nimi: {{ etunimi + ' ' + sukunimi }}</p>
+												
+												<p>
+													<a class="btn" href="" ng-click="tyhjenna()">Tyhjennä</a>
+												</p>
+											</div>
+										</div>
+									</div>
+								</body>
+							</html>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="appModule">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('appModule', []);
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('appModule').controller('henkiloController', function($scope) {
+								$scope.etunimi = 'Matti';
+								$scope.sukunimi = 'Meikäläinen';
+								
+								$scope.tyhjenna = function() {
+									$scope.etunimi = '';
+									$scope.sukunimi = '';
+								};
+							});
+						]]></script>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	  
+		<hr>
+	  
+		<div class="row">
+			<div class="span6"><a href="moduulit.html">Edellinen</a></div>
+			<div class="span6 text-right"><a href="service.html">Seuraava</a></div>
+		</div>
+
+    </div>
+	
+	<script>
+		SyntaxHighlighter.all();
+	</script>
+  </body>
+</html>
