@@ -1,0 +1,674 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/shCore.css" rel="stylesheet">
+    <link href="css/shThemeDefault.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushJScript.js"></script>
+	<script src="js/shBrushXml.js"></script>
+	<script src="js/underscore-min.js"></script>
+	
+	<script src="testaus/js/appModule.js"></script>
+	<script src="testaus/js/henkiloModule.js"></script>
+	<script src="testaus/js/henkiloController.js"></script>
+	<script src="testaus/js/henkiloFilter.js"></script>
+	<script src="testaus/js/henkiloFormController.js"></script>
+	<script src="testaus/js/henkiloService.js"></script>
+	<script src="testaus/js/henkiloTableController.js"></script>
+	<script src="testaus/js/tooltipDirective.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html">AngularJS demo</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sisältö <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Alku</a></li>
+				  <li><a href="binding.html">Data binding</a></li>
+				  <li><a href="moduulit.html">Moduuli ja Controller</a></li>
+				  <li><a href="tapahtumakuuntelijat.html">Tapahtumakuuntelijat</a></li>
+				  <li><a href="service.html">Service</a></li>
+				  <li><a href="template.html">Template</a></li>
+				  <li><a href="route.html">Route</a></li>
+				  <li><a href="filter.html">Filter</a></li>
+				  <li><a href="globalEvents.html">Global events</a></li>
+				  <li><a href="directive.html">Directive</a></li>
+				  <li class="active"><a href="testaus.html">Testaus</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+		<div class="row">
+			<div class="span12">
+				<h1>Testaus</h1>
+			
+				<p>AngularJS:n kehittäjät ovat tehneet myös <a href="http://karma-runner.github.com/">Karma</a>-testiajajan jolla voi helposti suorittaa JavaScript Unit-testejä oikeassa selaimessa eikä missään simuloidussa ympäristössä. Karma vaatii <a href="http://nodejs.org/">Node.js</a>:n toimiakseen. Karma ei mitenkään vaadi Angularia joten sillä voi testata kaikkea JavaScript-koodia.<p>
+				
+				<p>Karmalla pystyy ajamaan myös end-to-end testejä joissa selaimeen avataan oikea ohjelman sivu ja Karma klikkailee linkkejä. Näiden tekeminen on työläämpää kuin Unit-testien joten niitä ei käydä läpi tässä. Lisää tietoa AngularJS:n eri testitavoista löytyy loistavasta <a href="http://www.yearofmoo.com/2013/01/full-spectrum-testing-with-angularjs-and-testacular.html">Year of Moo</a> -blogista.</p>
+				
+				<h3>Node.js asennus</h3>
+				
+				<p>
+					<ol>
+						<li>Lataa <a href="http://nodejs.org/download/">asennuspaketti</a> ja asenna se oletusasetuksilla</li>
+						<li>Asennuksen jälkeen Noden package manager npm on PATH:ssa joten sitä voi käyttää suoraan komentoriviltä kaikissa hakemistoissa</li>
+					</ol>
+				</p>
+				
+				<h3>Karman asennus</h3>
+				
+				<p>
+					<ol>
+						<li>Suorita komenriillä komento <code>npm install -g karma</code> </li>
+						<li>Asennuksen jälkeen Karman käynnistyskomento <code>karma</code> on PATH:ssa joten sitä voi käyttää suoraan komentoriviltä kaikissa hakemistoissa</li>
+					</ol>
+				</p>
+				
+				<h3>Testien ajaminen</h3>
+				
+				<p>
+					<ol>
+						<li>Aseta Karman tarvitsema viite Firefoxin (tai muun selaimen) polkuun komentorivillä. Esim. <code>SET FIREFOX_BIN=C:\Program Files (x86)\Mozilla Firefox\firefox.exe</code>. Tämä täytyy tehdä joka kerta ennen testien ajoa ellei tätä laita ympäristömuuttujiin.</li>
+						<li>Menen komentorivillä hakemistoon jossa on <i>karma.conf.js</i> ja suorita <code>karma start</code> </li>
+					</ol>
+				</p>
+				
+				<h3>Testien kirjoittaminen</h3>
+				
+				<p>
+					<p>Testit kirjoitetaan <a href="http://pivotal.github.io/jasmine/">Jasmine</a> frameworkilla. Jasminen ei sinänäsä ole mitenkään sidoksissa Angulariin joten sitä voi käyttää kaiken JavaScript-koodin testaamiseen.</p>
+					
+					<p>Jasminen tärkeimmät komennot:</p>
+					
+					<ul>
+						<li><code>describe</code> määrittää testialueen jolle suoritetaan samat <code>beforeEach</code>-metodit</li>
+						<li><code>beforeEach</code> määrittää ennen joka testimetodia ajettavan koodin. Sama kuin JUnitin <code>@Before</code></li>
+						<li><code>it</code> määrittää yhden testin. Angularin palveluita voi injektoida <code>inject</code> metodilla.</li>
+						<li><code>spyOn</code> asettaa kuuntelijan metodille. Kuuntelija äänittää kutsujen määrän ja parametrit jotka voi validoida. Alkuperäistä metodia ei kutsuta ellei määritä <code>spyOn(...).andCallThrough()</code>. Alkuperäisen metodin sijaan voi kutsua myös omaa mock-implementaatiota <code>spyOn(...).andCallFake(function() {})</code> -metodilla</li>
+						<li><code>expect</code> vastaa JUnitin <code>assert</code>-metodeja. Arvojen yhtäsuuruutta voi verrata <code>expect(...).toEqual()</code> metodilla ja vakoiltujen metodien parametreja voi tarkistaa <code>expect(...).toHaveBeenCalledWith()</code> metodilla</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="row" ng-app="appModule">
+			<div class="span12" ng-view></div>
+		</div>
+		
+		<hr>
+		
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#html" data-toggle="tab">Main Html</a></li>
+					<li><a href="#template_henkilot" data-toggle="tab">henkilot.html</a></li>
+					<li><a href="#template_form" data-toggle="tab">form.html</a></li>
+					<li><a href="#template_table" data-toggle="tab">table.html</a></li>
+					<li><a href="#appModule" data-toggle="tab">appModule.js</a></li>
+					<li><a href="#henkiloModule" data-toggle="tab">henkiloModule.js</a></li>
+					<li><a href="#henkiloController" data-toggle="tab">henkiloController.js</a></li>
+					<li><a href="#henkiloFormController" data-toggle="tab">henkiloFormController.js</a></li>
+					<li><a href="#henkiloTableController" data-toggle="tab">henkiloTableController.js</a></li>
+					<li><a href="#henkiloService" data-toggle="tab">henkiloService.js</a></li>
+					<li><a href="#henkiloFilter" data-toggle="tab">henkiloFilter.js</a></li>
+					<li><a href="#tooltipDirective" data-toggle="tab">tooltipDirective.js</a></li>
+					<li><a href="#henkiloControllerTest" data-toggle="tab">henkiloControllerTest.js</a></li>
+					<li><a href="#henkiloFormControllerTest" data-toggle="tab">henkiloFormControllerTest.js</a></li>
+					<li><a href="#henkiloServiceTest" data-toggle="tab">henkiloServiceTest.js</a></li>
+					<li><a href="#karmaConf" data-toggle="tab">karma.conf.js</a></li>
+				</ul>
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="html">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<!DOCTYPE html>
+							<html lang="en">
+								<head>
+									<meta charset="utf-8">
+									<link href="css/bootstrap.css" rel="stylesheet">
+									<link href="css/bootstrap-responsive.css" rel="stylesheet">
+									<script src="js/jquery-1.9.1.min.js"/>
+									<script src="js/bootstrap.min.js"/>
+									<script src="js/angular.min.js"/>
+									<script src="js/underscore-min.js"/>
+									<script src="testaus/js/appModule.js"/>
+									<script src="testaus/js/henkiloModule.js"/>
+									<script src="testaus/js/henkiloController.js"/>
+									<script src="testaus/js/henkiloFilter.js"/>
+									<script src="testaus/js/henkiloFormController.js"/>
+									<script src="testaus/js/henkiloService.js"/>
+									<script src="testaus/js/henkiloTableController.js"/>
+									<script src="testaus/js/tooltipDirective.js"/>
+								</head>
+
+								<body>
+									<div class="container">
+										<div class="row" ng-app="appModule">
+											<div class="span12" ng-view></div>
+										</div>
+									</div>
+								</body>
+							</html>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_henkilot">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloController">
+								<div ng-include="'testaus/template/form.html'"></div>
+								<hr>
+								<div ng-include="'testaus/template/table.html'"></div>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_form">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloFormController">
+								<p>
+									Etunimi:
+									<input type="text" ng-model="henkilo.etunimi">
+									<a href="" ng-click="henkilo.etunimi = ''"><i class="icon-remove"></i></a>
+								</p>
+
+								<p>
+									Sukunimi:
+									<input type="text" ng-model="henkilo.sukunimi">
+									<a href="" ng-click="henkilo.sukunimi = ''"><i class="icon-remove"></i></a>
+								</p>
+
+								<p>Koko nimi: {{ henkilo.etunimi + ' ' + henkilo.sukunimi }}</p>
+
+								<p>
+									<a class="btn btn-primary" href="" ng-click="luoUusi()">Tallenna uutena</a>
+									<a class="btn btn-primary" href="" ng-click="paivita()" ng-show="henkilo.id">Päivitä</a>
+									<a class="btn" href="" ng-click="tyhjenna()">Tyhjennä</a>
+								</p>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_table">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloTableController">
+								<div class="row">
+									<div class="span6">
+										<a class="btn" href="" ng-click="lataaHenkilot()">Lataa henkilot serveriltä</a>
+									</div>
+									<div class="span6 text-right">
+										Hae: 
+										<input type="text" ng-model="hakuparametri">
+									</div>
+								</div>
+
+								<table class="table">
+									<tr>
+										<th>#</th>
+										<th>Etunimi</th>
+										<th>Sukunimi</th>
+										<th>Muokkausaika</th>
+										<th>Muokkaa</th>
+										<th>Poista</th>
+									</tr>
+									<tr ng-repeat="henkilo in henkilot | henkiloFilter:hakuparametri">
+										<td>{{ henkilo.id }}</td>
+										<td><span tooltip="henkilo.selite">{{ henkilo.etunimi }}</span></td>
+										<td><span tooltip="henkilo.selite">{{ henkilo.sukunimi }}</span></td>
+										<td>{{ henkilo.muokkausaika | date:'dd.MM.yyyy HH:mm' }}</td>
+										<td><a href="" ng-click="muokkaa(henkilo.id)"><i class="icon-pencil"></i></a></td>
+										<td><a href="" ng-click="poista(henkilo.id)"><i class="icon-remove"></i></a></td>
+									</tr>
+								</table>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="appModule">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('appModule', ['henkiloModule']);
+		
+							angular.module('appModule').config(function($routeProvider) {
+								$routeProvider.
+									when('/henkilot', {templateUrl: 'testaus/template/henkilot.html'}).
+									otherwise({redirectTo: '/henkilot'});
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloModule">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule', []);
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloController', function($scope) {
+								$scope.muokkaa = function(id) {
+									$scope.$broadcast('muokkaaHenkiloa', id);
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloFormController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloFormController', function($scope, henkiloService) {
+								$scope.henkilo = {};
+								
+								$scope.$on('muokkaaHenkiloa', function(event, id) {
+									$scope.henkilo = henkiloService.getHenkilo(id);
+								});
+								
+								$scope.tyhjenna = function() {
+									$scope.henkilo.etunimi = '';
+									$scope.henkilo.sukunimi = '';
+								};
+								
+								$scope.luoUusi = function() {
+									henkiloService.addHenkilo($scope.henkilo);
+									$scope.henkilo = {};
+								};
+								
+								$scope.paivita = function() {
+									henkiloService.updateHenkilo($scope.henkilo);
+									$scope.henkilo = {};
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloTableController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloTableController', function($scope, henkiloService) {
+								$scope.henkilot = [];
+								
+								$scope.$on('henkilotMuuttuneet', function(event) {
+									$scope.henkilot = henkiloService.getHenkilot();
+								});
+								
+								$scope.poista = function(id) {
+									henkiloService.removeHenkilo(id);
+								};
+								
+								$scope.lataaHenkilot = function() {
+									henkiloService.fetchHenkilot();
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloService">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').service('henkiloService', function($rootScope, $http) {
+								this.henkilot = [];
+								this.idCounter = 100;
+								
+								this.fetchHenkilot = function() {
+									var that = this;
+									$http.get('henkilot.json').success(function(data, status, headers, config) {
+										_.each(data, function(henkilo, index, list) {
+											henkilo.muokkausaika = new Date(henkilo.muokkausaika);
+										});
+										that.henkilot = data;
+										$rootScope.$broadcast('henkilotMuuttuneet');
+									});
+								};
+													
+								this.addHenkilo = function(henkilo) {
+									henkilo.id = this.idCounter++;
+									henkilo.muokkausaika = new Date();
+									this.henkilot.push(henkilo);
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+								
+								this.updateHenkilo = function(henkilo) {
+									var result = _.find(this.henkilot, function(henk){ return henk.id == henkilo.id; });
+									result.etunimi = henkilo.etunimi;
+									result.sukunimi = henkilo.sukunimi;
+									result.muokkausaika = new Date();
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+								
+								this.getHenkilot = function() {
+									var result = [];
+									_.each(this.henkilot, function(henkilo, index, list) {
+										result.push(_.clone(henkilo));
+									});
+									return result;
+								};
+													
+								this.getHenkilo = function(id) {
+									var result = _.find(this.henkilot, function(henkilo){ return henkilo.id == id; });
+									return _.clone(result);
+								};
+								
+								this.removeHenkilo = function(id) {
+									this.henkilot = _.reject(this.henkilot, function(henkilo){ return henkilo.id == id; });
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloFilter">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').filter('henkiloFilter', function() {
+								return function(henkilot, hakuparametri) {
+									if(_.isUndefined(hakuparametri) || hakuparametri.length == 0) {
+										return henkilot;
+									}
+									hakuparametri = hakuparametri.toLowerCase();
+								
+									var output = _.filter(henkilot, function(henkilo){ 
+										return (henkilo.etunimi && henkilo.etunimi.toLowerCase().indexOf(hakuparametri) != -1) || 
+											(henkilo.sukunimi && henkilo.sukunimi.toLowerCase().indexOf(hakuparametri) != -1);
+									});
+									return output;
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="tooltipDirective">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').directive('tooltip', function() {
+								return function postLink($scope, iElement, iAttrs) {
+									$(iElement).tooltip({
+										title: $scope.$eval(iAttrs.tooltip),
+										container: 'body',
+										placement: 'right'
+									});
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloControllerTest">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							describe("henkiloController", function() {
+								var $scope;
+								var ctrl;
+
+								beforeEach(module('henkiloModule'));
+								
+								beforeEach(inject(function($rootScope, $controller) {
+									$scope = $rootScope.$new();
+									ctrl = $controller('henkiloController', {
+										$scope : $scope
+									});
+								}));
+
+								it('muokkaa()', inject(function() {
+									spyOn($scope, '$broadcast');
+									
+									$scope.muokkaa(12345);
+									
+									expect($scope.$broadcast).toHaveBeenCalledWith('muokkaaHenkiloa', 12345);
+								}));
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloFormControllerTest">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							describe("henkiloFormController", function() {
+								var $scope;
+								var ctrl;
+
+								beforeEach(module('henkiloModule'));
+
+								beforeEach(inject(function($rootScope, $controller) {
+									$scope = $rootScope.$new();
+									ctrl = $controller('henkiloFormController', {
+										$scope : $scope
+									});
+								}));
+
+								it('henkilön tulee olla tyhjä kun controller on luotu', inject(function() {
+									expect($scope.henkilo).toEqual({});
+								}));
+
+								it('tyhjenna()', inject(function() {
+									$scope.henkilo.etunimi = 'Matti';
+									$scope.henkilo.sukunimi = 'Meikäläinen';
+									
+									$scope.tyhjenna();
+								
+									expect($scope.henkilo.etunimi).toEqual('');
+									expect($scope.henkilo.sukunimi).toEqual('');
+								}));
+
+								it('luoUusi()', inject(function(henkiloService) {
+									$scope.henkilo.etunimi = 'Matti';
+									$scope.henkilo.sukunimi = 'Meikäläinen';
+									
+									spyOn(henkiloService, 'addHenkilo');
+									
+									$scope.luoUusi();
+								
+									expect($scope.henkilo).toEqual({});
+									expect(henkiloService.addHenkilo).toHaveBeenCalledWith({ etunimi: 'Matti', sukunimi: 'Meikäläinen'});
+									expect(henkiloService.addHenkilo.callCount).toBe(1);
+								}));
+
+								it('paivita()', inject(function(henkiloService) {
+									$scope.henkilo.etunimi = 'Matti';
+									$scope.henkilo.sukunimi = 'Meikäläinen';
+									
+									spyOn(henkiloService, 'updateHenkilo');
+									
+									$scope.paivita();
+								
+									expect($scope.henkilo).toEqual({});
+									expect(henkiloService.updateHenkilo).toHaveBeenCalledWith({ etunimi: 'Matti', sukunimi: 'Meikäläinen'});
+									expect(henkiloService.updateHenkilo.callCount).toBe(1);
+								}));
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloServiceTest">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							describe("henkiloService", function() {
+								beforeEach(module('henkiloModule'));
+								
+								it('fetchHenkilot()', inject(function($httpBackend, $rootScope, henkiloService) {
+									$httpBackend.expectGET('henkilot.json').respond([{
+										etunimi: "Urho", 
+										sukunimi: "Kekkonen",
+										muokkausaika: 1100133848137}
+									]);
+									
+									henkiloService.fetchHenkilot();
+									$httpBackend.flush();
+									
+									expect(henkiloService.henkilot).toEqual([{
+										etunimi: "Urho", 
+										sukunimi: "Kekkonen",
+										muokkausaika: new Date(1100133848137)
+									}]);
+								}));
+								
+								it('addHenkilo()', inject(function($rootScope, henkiloService) {
+									var henkilo = {
+										etunimi: 'Matti', 
+										sukunimi: 'Meikäläinen'
+									};
+									spyOn($rootScope, '$broadcast');
+								
+									henkiloService.addHenkilo(henkilo);
+								
+									expect($rootScope.$broadcast).toHaveBeenCalledWith('henkilotMuuttuneet');
+									expect(henkiloService.henkilot).toEqual([{
+										id: 100,
+										etunimi: 'Matti', 
+										sukunimi: 'Meikäläinen',
+										muokkausaika: jasmine.any(Date)
+									}]);
+								}));
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloServiceTest">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							describe("henkiloService", function() {
+								beforeEach(module('henkiloModule'));
+								
+								it('fetchHenkilot()', inject(function($httpBackend, $rootScope, henkiloService) {
+									$httpBackend.expectGET('henkilot.json').respond([{
+										etunimi: "Urho", 
+										sukunimi: "Kekkonen",
+										muokkausaika: 1100133848137}
+									]);
+									
+									henkiloService.fetchHenkilot();
+									$httpBackend.flush();
+									
+									expect(henkiloService.henkilot).toEqual([{
+										etunimi: "Urho", 
+										sukunimi: "Kekkonen",
+										muokkausaika: new Date(1100133848137)
+									}]);
+								}));
+								
+								it('addHenkilo()', inject(function($rootScope, henkiloService) {
+									var henkilo = {
+										etunimi: 'Matti', 
+										sukunimi: 'Meikäläinen'
+									};
+									spyOn($rootScope, '$broadcast');
+								
+									henkiloService.addHenkilo(henkilo);
+								
+									expect($rootScope.$broadcast).toHaveBeenCalledWith('henkilotMuuttuneet');
+									expect(henkiloService.henkilot).toEqual([{
+										id: 100,
+										etunimi: 'Matti', 
+										sukunimi: 'Meikäläinen',
+										muokkausaika: jasmine.any(Date)
+									}]);
+								}));
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="karmaConf">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							// Karma configuration
+							// Generated on Tue Apr 16 2013 22:13:05 GMT+0300 (FLE Daylight Time)
+
+
+							// base path, that will be used to resolve files and exclude
+							basePath = '';
+
+
+							// list of files / patterns to load in the browser
+							files = [
+							  JASMINE,
+							  JASMINE_ADAPTER,
+							  '../js/jquery-1.9.1.min.js',
+							  '../js/angular.min.js',
+							  '../js/angular-mocks.js',
+							  '../js/underscore-min.js',
+							  'js/*Module.js',
+							  'js/*Controller.js',
+							  'js/*Service.js',
+							  'js/*Filter.js',
+							  'js/*Directive.js',
+							  'testit/*Test.js'
+							];
+
+
+							// list of files to exclude
+							exclude = [
+							  
+							];
+
+
+							// test results reporter to use
+							// possible values: 'dots', 'progress', 'junit'
+							reporters = ['progress'];
+
+
+							// web server port
+							port = 9876;
+
+
+							// cli runner port
+							runnerPort = 9100;
+
+
+							// enable / disable colors in the output (reporters and logs)
+							colors = true;
+
+
+							// level of logging
+							// possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
+							logLevel = LOG_INFO;
+
+
+							// enable / disable watching file and executing tests whenever any file changes
+							autoWatch = true;
+
+
+							// Start these browsers, currently available:
+							// - Chrome
+							// - ChromeCanary
+							// - Firefox
+							// - Opera
+							// - Safari (only Mac)
+							// - PhantomJS
+							// - IE (only Windows)
+							browsers = ['Firefox'];
+
+
+							// If browser does not capture in given timeout [ms], kill it
+							captureTimeout = 60000;
+
+
+							// Continuous Integration mode
+							// if true, it capture browsers, run tests and exit
+							singleRun = false;
+
+						]]></script>
+					</div>
+					
+					
+				</div>
+				
+			</div>
+		</div>
+	  
+		<hr>
+	  
+		<div class="row">
+			<div class="span6"><a href="directive.html">Edellinen</a></div>
+			<div class="span6 text-right"><a href="">Seuraava</a></div>
+		</div>
+
+    </div>
+	
+	<script>
+		SyntaxHighlighter.all();
+	</script>
+  </body>
+</html>

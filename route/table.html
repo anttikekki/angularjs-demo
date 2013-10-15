@@ -1,0 +1,22 @@
+﻿<div ng-controller="henkiloTableController">
+	<p>
+		<a class="btn btn-primary" href="#/henkilot/new">Lisää uusi</a>
+	</p>
+
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Etunimi</th>
+			<th>Sukunimi</th>
+			<th>Muokkaa</th>
+			<th>Poista</th>
+		</tr>
+		<tr ng-repeat="henkilo in henkilot">
+			<td>{{ henkilo.id }}</td>
+			<td>{{ henkilo.etunimi }}</td>
+			<td>{{ henkilo.sukunimi }}</td>
+			<td><a href="#/henkilot/{{ henkilo.id }}"><i class="icon-pencil"></i></a></td>
+			<td><a href="" ng-click="poista(henkilo.id)"><i class="icon-remove"></i></a></td>
+		</tr>
+	</table>
+</div>

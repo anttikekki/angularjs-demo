@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/shCore.css" rel="stylesheet">
+    <link href="css/shThemeDefault.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/shCore.js"></script>
+	<script src="js/shBrushJScript.js"></script>
+	<script src="js/shBrushXml.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="directive/appModule.js"></script>
+	<script src="directive/henkiloModule.js"></script>
+	<script src="directive/henkiloController.js"></script>
+	<script src="directive/henkiloFormController.js"></script>
+	<script src="directive/henkiloTableController.js"></script>
+	<script src="directive/henkiloService.js"></script>
+	<script src="directive/henkiloFilter.js"></script>
+	<script src="directive/tooltipDirective.js"></script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html">AngularJS demo</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sisältö <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="index.html">Alku</a></li>
+				  <li><a href="binding.html">Data binding</a></li>
+				  <li><a href="moduulit.html">Moduuli ja Controller</a></li>
+				  <li><a href="tapahtumakuuntelijat.html">Tapahtumakuuntelijat</a></li>
+				  <li><a href="service.html">Service</a></li>
+				  <li><a href="template.html">Template</a></li>
+				  <li><a href="route.html">Route</a></li>
+				  <li><a href="filter.html">Filter</a></li>
+				  <li><a href="globalEvents.html">Global events</a></li>
+				  <li class="active"><a href="directive.html">Directive</a></li>
+				  <li><a href="testaus.html">Testaus</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+		<div class="row">
+			<div class="span12">
+				<h1>Directive</h1>
+				
+				<p>Directive on erittäin ilmaisuvoimainen tapa muokata HTML-sivua. Ongelmana on että AngularJS:n konsepteista Directive ja sen kaikki mahdollisuudet ovat varmasti monimutkaisin asia. Perustoiminnalisuuksia (kuten Bootsrapin jQuery tooltipin käyttäminen) on helppoa mutta osa kehittyneimmistä toiminnallisuuksista on vaikeita. Varsinkin intehroinnit monimutkaisten jQuery pluginien kanssa voi olla haastavaa.</p>
+
+				<p>Directiiville pystyy antaa paramterina merkkijonon, expressionin tai $scopen muuttujan nimen. Directiivi pystyy kuuntelemaan $scopen ja expressionin muutoksia. Directive pystyy myös muokkaamaan $scopea. Directiivin mahdollisuutta muokata ja nähdä parent-$scopen muuttujia voi rajoittaa muuttujakohtaisesti.</p>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="row" ng-app="appModule">
+			<div class="span12" ng-view></div>
+		</div>
+		
+		<hr>
+		
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#html" data-toggle="tab">index.html</a></li>
+					<li><a href="#template_henkilot" data-toggle="tab">henkilot.html</a></li>
+					<li><a href="#template_form" data-toggle="tab">form.html</a></li>
+					<li><a href="#template_table" data-toggle="tab">table.html</a></li>
+					<li><a href="#appModule" data-toggle="tab">appModule.js</a></li>
+					<li><a href="#henkiloModule" data-toggle="tab">henkiloModule.js</a></li>
+					<li><a href="#henkiloController" data-toggle="tab">henkiloController.js</a></li>
+					<li><a href="#henkiloFormController" data-toggle="tab">henkiloFormController.js</a></li>
+					<li><a href="#henkiloTableController" data-toggle="tab">henkiloTableController.js</a></li>
+					<li><a href="#henkiloService" data-toggle="tab">henkiloService.js</a></li>
+					<li><a href="#henkiloFilter" data-toggle="tab">henkiloFilter.js</a></li>
+					<li><a href="#tooltipDirective" data-toggle="tab">tooltipDirective.js</a></li>
+				</ul>
+				
+				<div class="tab-content">
+					<div class="tab-pane active" id="html">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<!DOCTYPE html>
+							<html lang="en">
+								<head>
+									<meta charset="utf-8">
+									<link href="css/bootstrap.css" rel="stylesheet">
+									<link href="css/bootstrap-responsive.css" rel="stylesheet">
+									<script src="js/jquery-1.9.1.min.js"/>
+									<script src="js/bootstrap.min.js"/>
+									<script src="js/angular.min.js"/>
+									<script src="js/underscore-min.js"/>
+									<script src="directive/appModule.js"/>
+									<script src="directive/henkiloModule.js"/>
+									<script src="directive/henkiloController.js"/>
+									<script src="directive/henkiloFormController.js"/>
+									<script src="directive/henkiloTableController.js"/>
+									<script src="directive/henkiloService.js"/>
+									<script src="directive/henkiloFilter.js"/>
+									<script src="directive/tooltipDirective.js"/>
+								</head>
+
+								<body>
+									<div class="container">
+										<div class="row" ng-app="appModule">
+											<div class="span12" ng-view></div>
+										</div>
+									</div>
+								</body>
+							</html>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_henkilot">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloController">
+								<div ng-include="'directive/form.html'"></div>
+								<hr>
+								<div ng-include="'directive/table.html'"></div>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_form">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloFormController">
+								<p>
+									Etunimi:
+									<input type="text" ng-model="henkilo.etunimi">
+									<a href="" ng-click="henkilo.etunimi = ''"><i class="icon-remove"></i></a>
+								</p>
+
+								<p>
+									Sukunimi:
+									<input type="text" ng-model="henkilo.sukunimi">
+									<a href="" ng-click="henkilo.sukunimi = ''"><i class="icon-remove"></i></a>
+								</p>
+
+								<p>Koko nimi: {{ henkilo.etunimi + ' ' + henkilo.sukunimi }}</p>
+
+								<p>
+									<a class="btn btn-primary" href="" ng-click="luoUusi()">Tallenna uutena</a>
+									<a class="btn btn-primary" href="" ng-click="paivita()" ng-show="henkilo.id">Päivitä</a>
+									<a class="btn" href="" ng-click="tyhjenna()">Tyhjennä</a>
+								</p>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="template_table">
+						<script type="syntaxhighlighter" class="brush: xml"><![CDATA[
+							<div ng-controller="henkiloTableController">
+								<div class="row">
+									<div class="span12 text-right">
+										Hae: 
+										<input type="text" ng-model="hakuparametri">
+									</div>
+								</div>
+
+								<table class="table">
+									<tr>
+										<th>#</th>
+										<th>Etunimi</th>
+										<th>Sukunimi</th>
+										<th>Muokkausaika</th>
+										<th>Muokkaa</th>
+										<th>Poista</th>
+									</tr>
+									<tr ng-repeat="henkilo in henkilot | henkiloFilter:hakuparametri">
+										<td>{{ henkilo.id }}</td>
+										<td><span tooltip="henkilo.selite">{{ henkilo.etunimi }}</span></td>
+										<td><span tooltip="henkilo.selite">{{ henkilo.sukunimi }}</span></td>
+										<td>{{ henkilo.muokkausaika | date:'dd.MM.yyyy HH:mm' }}</td>
+										<td><a href="" ng-click="muokkaa(henkilo.id)"><i class="icon-pencil"></i></a></td>
+										<td><a href="" ng-click="poista(henkilo.id)"><i class="icon-remove"></i></a></td>
+									</tr>
+								</table>
+							</div>
+						]]></script>
+					</div>
+					<div class="tab-pane" id="appModule">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('appModule', ['henkiloModule']);
+		
+							angular.module('appModule').config(function($routeProvider) {
+								$routeProvider.
+									when('/henkilot', {templateUrl: 'directive/henkilot.html'}).
+									otherwise({redirectTo: '/henkilot'});
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloModule">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule', []);
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloController', function($scope) {
+								$scope.muokkaa = function(id) {
+									$scope.$broadcast('muokkaaHenkiloa', id);
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloFormController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloFormController', function($scope, henkiloService) {
+								$scope.henkilo = {};
+								
+								$scope.$on('muokkaaHenkiloa', function(event, id) {
+									$scope.henkilo = henkiloService.getHenkilo(id);
+								});
+								
+								$scope.tyhjenna = function() {
+									$scope.henkilo.etunimi = '';
+									$scope.henkilo.sukunimi = '';
+								};
+								
+								$scope.luoUusi = function() {
+									henkiloService.addHenkilo($scope.henkilo);
+									$scope.henkilo = {};
+								};
+								
+								$scope.paivita = function() {
+									henkiloService.updateHenkilo($scope.henkilo);
+									$scope.henkilo = {};
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloTableController">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').controller('henkiloTableController', function($scope, henkiloService) {
+								$scope.henkilot = [];
+								
+								$scope.$on('henkilotMuuttuneet', function(event) {
+									$scope.henkilot = henkiloService.getHenkilot();
+								});
+								
+								$scope.poista = function(id) {
+									henkiloService.removeHenkilo(id);
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloService">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').service('henkiloService', function($rootScope, $http) {
+								this.henkilot = [];
+								
+								var that = this;
+								$http.get('henkilot.json').success(function(data, status, headers, config) {
+									_.each(data, function(henkilo, index, list) {
+										henkilo.muokkausaika = new Date(henkilo.muokkausaika);
+									});
+									that.henkilot = data;
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								});
+								this.idCounter = 100;
+													
+								this.addHenkilo = function(henkilo) {
+									henkilo.id = this.idCounter++;
+									henkilo.muokkausaika = new Date();
+									this.henkilot.push(henkilo);
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+								
+								this.updateHenkilo = function(henkilo) {
+									var result = _.find(this.henkilot, function(henk){ return henk.id == henkilo.id; });
+									result.etunimi = henkilo.etunimi;
+									result.sukunimi = henkilo.sukunimi;
+									result.muokkausaika = new Date();
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+								
+								this.getHenkilot = function() {
+									var result = [];
+									_.each(this.henkilot, function(henkilo, index, list) {
+										result.push(_.clone(henkilo));
+									});
+									return result;
+								};
+													
+								this.getHenkilo = function(id) {
+									var result = _.find(this.henkilot, function(henkilo){ return henkilo.id == id; });
+									return _.clone(result);
+								};
+								
+								this.removeHenkilo = function(id) {
+									this.henkilot = _.reject(this.henkilot, function(henkilo){ return henkilo.id == id; });
+									$rootScope.$broadcast('henkilotMuuttuneet');
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="henkiloFilter">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').filter('henkiloFilter', function() {
+								return function(henkilot, hakuparametri) {
+									if(_.isUndefined(hakuparametri) || hakuparametri.length == 0) {
+										return henkilot;
+									}
+									hakuparametri = hakuparametri.toLowerCase();
+								
+									var output = _.filter(henkilot, function(henkilo){ 
+										return (henkilo.etunimi && henkilo.etunimi.toLowerCase().indexOf(hakuparametri) != -1) || 
+											(henkilo.sukunimi && henkilo.sukunimi.toLowerCase().indexOf(hakuparametri) != -1);
+									});
+									return output;
+								};
+							});
+						]]></script>
+					</div>
+					<div class="tab-pane" id="tooltipDirective">
+						<script type="syntaxhighlighter" class="brush: js"><![CDATA[
+							angular.module('henkiloModule').directive('tooltip', function() {
+								return function postLink($scope, iElement, iAttrs) {
+									$(iElement).tooltip({
+										title: $scope.$eval(iAttrs.tooltip),
+										container: 'body',
+										placement: 'right'
+									});
+								};
+							});
+						]]></script>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	  
+		<hr>
+	  
+		<div class="row">
+			<div class="span6"><a href="globalEvents.html">Edellinen</a></div>
+			<div class="span6 text-right"><a href="testaus.html">Seuraava</a></div>
+		</div>
+
+    </div>
+	
+	<script>
+		SyntaxHighlighter.all();
+	</script>
+  </body>
+</html>

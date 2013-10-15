@@ -1,0 +1,27 @@
+﻿<div ng-controller="henkiloTableController">
+	<div class="row">
+		<div class="span12 text-right">
+			Hae: 
+			<input type="text" ng-model="hakuparametri">
+		</div>
+	</div>
+
+	<table class="table">
+		<tr>
+			<th>#</th>
+			<th>Etunimi</th>
+			<th>Sukunimi</th>
+			<th>Muokkausaika</th>
+			<th>Muokkaa</th>
+			<th>Poista</th>
+		</tr>
+		<tr ng-repeat="henkilo in henkilot | henkiloFilter:hakuparametri">
+			<td>{{ henkilo.id }}</td>
+			<td><span tooltip="henkilo.selite">{{ henkilo.etunimi }}</span></td>
+			<td><span tooltip="henkilo.selite">{{ henkilo.sukunimi }}</span></td>
+			<td>{{ henkilo.muokkausaika | date:'dd.MM.yyyy HH:mm' }}</td>
+			<td><a href="" ng-click="muokkaa(henkilo.id)"><i class="icon-pencil"></i></a></td>
+			<td><a href="" ng-click="poista(henkilo.id)"><i class="icon-remove"></i></a></td>
+		</tr>
+	</table>
+</div>
